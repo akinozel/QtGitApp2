@@ -1,37 +1,41 @@
 import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtGitApp2 1.0
 import QtQuick.VirtualKeyboard
 
 Window {
-    id: window
-    width: 640
-    height: 480
     visible: true
-    title: qsTr("Hello World")
+    width: 400; height: 300
+    title: qsTr("Selam Dünya App")
 
-    InputPanel {
-        id: inputPanel
-        z: 99
-        x: 0
-        y: window.height
-        width: window.width
+    Rectangle {
+        anchors.fill: parent
+        color: "#34495E"
 
-        states: State {
-            name: "visible"
-            when: inputPanel.active
-            PropertyChanges {
-                target: inputPanel
-                y: window.height - inputPanel.height
+        Column {
+            anchors.centerIn: parent
+            spacing: 10
+
+            Text {
+                id: label
+                text: "Sayaç: 0"
+                font.pixelSize: 24
+                color: "#ECF0F1"
             }
-        }
-        transitions: Transition {
-            from: ""
-            to: "visible"
-            reversible: true
-            ParallelAnimation {
-                NumberAnimation {
-                    properties: "y"
-                    duration: 250
-                    easing.type: Easing.InOutQuad
+
+            Button {
+                text: "Arttır"
+                onClicked: {
+                    var sayi = parseInt(label.text.split(": ")[1]) + 1
+                    label.text = "Sayaç: " + sayi
+                }
+            }
+
+            Button {
+                text: "Sıfırla"
+                onClicked: {
+                    label.text = "Sayaç: 0"
                 }
             }
         }
